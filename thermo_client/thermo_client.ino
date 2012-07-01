@@ -66,7 +66,7 @@ void loop(void)
 
   client.stop();
   //1000 = 1 second
-  delay(1000);
+  delay(60000);
 
 }
 

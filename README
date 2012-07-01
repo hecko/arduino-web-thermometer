@@ -1,2 +1,12 @@
 Designed and programmed by Marcel Hecko, 2010 - 2012
 Please treat under the GNU GPL v2 license.
+
+Tested on: Arduino Uno R2, Arduino EthShield SD
+
+Temperature sensor: DS18B20 (TO-92 version)
+
+DS18B20 connections to Arduino:
+pin 1 - GND (Gnd on Arduino)
+pin 2 - Signal (Digital pin 2 on Arduino)
+pin 3 - Vdd (5V on Arduino)
+4.7k pull-up resistor between 5V and signal pin - I use 47k resistor, others say 4.7k should be used.
