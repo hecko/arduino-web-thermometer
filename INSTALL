@@ -1,3 +1,4 @@
-These libraries need to be installed: 
-
+These libraries need to be installed into Arduino `libraries` folder: 
 http://www.milesburton.com/?title=Dallas_Temperature_Control_Library
+
+Move the top directory into ~/sketchbook/ and load via Arduino IDE   File > Sketchbook > ...
