@@ -2,6 +2,7 @@
 #include <Ethernet.h>
 #include <DallasTemperature.h>
 #include <OneWire.h>
+#include <Servo.h>
 
 // Enter a MAC address and IP address for your controller below.
 // The IP address will be dependent on your local network:
@@ -23,6 +24,8 @@ DallasTemperature sensors(&oneWire);
 DeviceAddress Thermometer;
 int numberOfThermometers;
 
+Servo myservo;
+int pos = 0;
 
 void setup(void) {
   Ethernet.begin(mac,ip,gateway);
@@ -31,6 +34,8 @@ void setup(void) {
   numberOfThermometers = sensors.getDeviceCount();
   sensors.getAddress(Thermometer,0);
   sensors.setResolution(Thermometer, 12);
+
+  myservo.attach(9);
 }
 
 void loop(void)
@@ -60,6 +65,11 @@ void loop(void)
   client.println();
   Serial.println(tempC);
 
+  pos = (tempC-20)*8;
+  Serial.print("pos:");
+  Serial.println(pos);
+  myservo.write(pos);
+  delay(500);
 
   Serial.println("...");
 
