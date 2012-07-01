@@ -9,8 +9,6 @@ byte mac[] = {
   0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
 byte ip[] = { 
   192, 168, 88, 100 };
-byte subnet[] = { 
-  255, 255, 255, 0 };
 byte gateway[] = { 
   192, 168, 88, 1 };
 byte server[] = { 
@@ -19,28 +17,28 @@ byte server[] = {
 //define the server on which the temperature database resides
 EthernetClient client;
 
-//OneWire ds(2);
+OneWire oneWire(2);
 
-//DallasTemperature sensors(&oneWire);
-//DeviceAddress Thermometer;
-//int numberOfThermometers;
+DallasTemperature sensors(&oneWire);
+DeviceAddress Thermometer;
+int numberOfThermometers;
 
 
 void setup(void) {
-  Ethernet.begin(mac,ip,gateway,subnet);
+  Ethernet.begin(mac,ip,gateway);
   Serial.begin(9600);
-  //sensors.begin();
-  //numberOfThermometers = sensors.getDeviceCount();
-  //sensors.getAddress(Thermometer,0);
-  //sensors.setResolution(Thermometer, 12);
+  sensors.begin();
+  numberOfThermometers = sensors.getDeviceCount();
+  sensors.getAddress(Thermometer,0);
+  sensors.setResolution(Thermometer, 12);
 }
 
 void loop(void)
 {
   // if there are incoming bytes available 
   // from the server, read them and print them:
-  //sensors.requestTemperatures();
-  //float tempC = sensors.getTempC(Thermometer);
+  sensors.requestTemperatures();
+  float tempC = sensors.getTempC(Thermometer);
 
   //delay(100);
   Serial.println("connecting...");
@@ -50,22 +48,25 @@ void loop(void)
     Serial.println("connected");
     // Make a HTTP request:
     client.print("GET /home/in/?key=");
-    //for (uint8_t i = 0; i < 8; i++) {
-    //  if (Thermometer[i] < 16) client.print("0");
-    //  client.print(Thermometer[i], HEX);
+    for (uint8_t i = 0; i < 8; i++) {
+      if (Thermometer[i] < 16) client.print("0");
+      client.print(Thermometer[i], HEX);
+    }
   }
 
   client.print("&val=");
-  //client.print(tempC);
+  client.print(tempC);
   client.println(" HTTP/1.0");
   client.println();
+  Serial.println(tempC);
 
 
   Serial.println("...");
 
 
   client.stop();
-  delay(60000);
+  //1000 = 1 second
+  delay(1000);
 
 }
 
