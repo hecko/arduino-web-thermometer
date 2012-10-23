@@ -1,4 +1,7 @@
 These libraries need to be installed into Arduino `libraries` folder: 
 http://www.milesburton.com/?title=Dallas_Temperature_Control_Library
+http://www.pjrc.com/teensy/td_libs_OneWire.html
 
-Move the top directory into ~/sketchbook/ and load via Arduino IDE   File > Sketchbook > ...
+Unpack them into your sketch directory:
+
+~/sketchbook/libraries/
